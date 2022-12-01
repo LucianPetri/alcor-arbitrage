@@ -5,12 +5,13 @@ import { ArbitrageProvider } from "./contexts/arbitrage";
 
 function App() {
     return (
-        <ChakraProvider>
-            <ArbitrageProvider>
+      <ChakraProvider>
+        <div></div>
+        {/* <ArbitrageProvider>
                 <ArbTable />
                 <Menu />
-            </ArbitrageProvider>
-        </ChakraProvider>
+            </ArbitrageProvider> */}
+      </ChakraProvider>
     );
 }
 
