@@ -20,7 +20,9 @@ export const createPairs = (pairs: Set<AlcorPair>, targetTokens: Set<string>, mi
     if (!firstPairs.has(pair) && !lastPairs.has(pair) && !targetTokens.has(pair.token1.fullName) && !targetTokens.has(pair.token2.fullName)) {
       const isInFirst = [...firstPairs].find((fp) => fp.token2.fullName === pair.token1.fullName);
       const isInLast = [...lastPairs].find((lp) => lp.token1.fullName === pair.token2.fullName);
-      pivotPairs.push(pair);
+      if (isInFirst && isInLast) {
+        pivotPairs.push(pair);
+      }
     }
   });
   firstPairs.forEach((firstPair) => {
