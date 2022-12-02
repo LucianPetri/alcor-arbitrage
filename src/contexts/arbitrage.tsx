@@ -4,10 +4,12 @@ import { createPairs, AlcorPair, AlcorPool, createPools, filterPairs, ArbitrageP
 interface ArbitrageContextType {
   pools: Set<AlcorPool>;
   pairs: Set<AlcorPair>;
+  minArb: number;
   arbPairs: Set<ArbitragePair>;
   whiteList: Set<string>;
   blackList: Set<string>;
   targetList: Set<string>;
+  setMinArb: (minArb: number) => void;
   setBlackList: (blackList: Set<string>) => void;
   setWhiteList: (witeList: Set<string>) => void;
   setTargetList: (witeList: Set<string>) => void;
@@ -21,7 +23,7 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
   const [arbPairs, setArbPairs] = useState<Set<ArbitragePair>>(new Set([]));
   const [whiteList, setWhiteList] = useState<Set<string>>(new Set([]));
   const [blackList, setBlackList] = useState<Set<string>>(new Set([]));
-  const [targetList, setTargetList] = useState<Set<string>>(new Set(["WAXUSDT@eth.token"]));
+  const [targetList, setTargetList] = useState<Set<string>>(new Set(["WAX@eosio.token"]));
   const [minArb, setMinArb] = useState<number>(2);
 
   const generatePairs = async () => {
@@ -46,10 +48,12 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
   return {
     pools,
     pairs,
+    minArb,
     arbPairs,
     whiteList,
     blackList,
     targetList,
+    setMinArb,
     setBlackList,
     setWhiteList,
     setTargetList,
