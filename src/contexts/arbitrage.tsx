@@ -19,16 +19,16 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
   const [pairs, setPairs] = useState<Set<AlcorPair>>(new Set([]));
   const [pools, setPools] = useState<Set<AlcorPool>>(new Set([]));
   const [arbPairs, setArbPairs] = useState<Set<ArbitragePair>>(new Set([]));
-  const [whiteList, setWhiteList] = useState<Set<string>>(new Set(["WAX@eosio.token"]));
+  const [whiteList, setWhiteList] = useState<Set<string>>(new Set(["WAXUSDT@eth.token"]));
   const [blackList, setBlackList] = useState<Set<string>>(new Set([]));
-  const [targetList, setTargetList] = useState<Set<string>>(new Set(["WAX@eosio.token"]));
+  const [targetList, setTargetList] = useState<Set<string>>(new Set(["WAXUSDT@eth.token"]));
   const [minArb, setMinArb] = useState<number>(2);
 
   const generatePairs = async () => {
     try {
       const newPools: Set<AlcorPool> = await createPools();
       const newPairs = filterPairs(newPools, blackList, new Set([]));
-      const newArbPairs = createPairs(newPairs, new Set(["WAX@eosio.token"]), minArb);
+      const newArbPairs = createPairs(newPairs, targetList, minArb);
       setPools(newPools);
       setPairs(newPairs);
       setArbPairs(newArbPairs);
