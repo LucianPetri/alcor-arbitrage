@@ -15,8 +15,8 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
   const generatePairs = async () => {
     try {
       const newPools: Set<AlcorPool> = await createPools();
-      const newPairs = filterPairs(newPools, blackList, whiteList);
-      const newArbPairs = createPairs(newPairs);
+      const newPairs = filterPairs(newPools, blackList, new Set([]));
+      const newArbPairs = createPairs(newPairs, new Set(["WAX@eosio.token"]));
       setPools(newPools);
       setPairs(newPairs);
       setArbPairs(newArbPairs);

@@ -50,8 +50,8 @@ const generatePair = (pool: AlcorLiquidityPool) => {
   const fee2 = token2Price * (4 + 0.3) * 0.01;
   const estimatedPrice1 = token1Price + fee1;
   const estimatedPrice2 = token2Price + fee2;
-  const pair1: AlcorPair = { name: token1.fullName + "|" + token2.fullName, fee: fee1, price: estimatedPrice1, quantity: token1.quantity };
-  const pair2: AlcorPair = { name: token2.fullName + "|" + token1.fullName, fee: fee2, price: estimatedPrice2, quantity: token2.quantity };
+  const pair1: AlcorPair = { name: token1.fullName + "|" + token2.fullName, fee: fee1, price: estimatedPrice1, quantity: token1.quantity, token1: token1, token2: token2 };
+  const pair2: AlcorPair = { name: token2.fullName + "|" + token1.fullName, fee: fee2, price: estimatedPrice2, quantity: token2.quantity, token1: token2, token2: token1 };
   return { token1, token2, pair1, pair2 };
 };
 
@@ -90,11 +90,11 @@ export const filterPairs = (pools: Set<AlcorPool>, blackList: Set<string>, white
   const pairs: Set<AlcorPair> = new Set([]);
   pools.forEach((pool) => {
     const { pair1, pair2, token1, token2 } = pool;
-    if (TokenNameInSet(blackList, token1.fullName, token2.fullName)) {
+    if (blackList.size > 0 && TokenNameInSet(blackList, token1.fullName, token2.fullName)) {
       return;
     }
 
-    if (!TokenNameInSet(whiteList, token1.fullName, token2.fullName)) {
+    if (whiteList.size > 0 && !TokenNameInSet(whiteList, token1.fullName, token2.fullName)) {
       return;
     }
 
@@ -120,7 +120,7 @@ export const createPools = async () => {
       upper_bound: "",
       index_position: 1,
       key_type: "",
-      limit: 100000,
+      limit: 200,
       reverse: false,
       show_payer: false,
     };
