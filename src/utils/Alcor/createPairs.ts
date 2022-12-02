@@ -30,7 +30,9 @@ export const createPairs = (pairs: Set<AlcorPair>, targetTokens: Set<string>, mi
       if (firstPair.token1.fullName === lastPair.token2.fullName) {
         const pivotPair = pivotPairs.find((p) => p.token1.fullName === firstPair.token2.fullName && p.token2.fullName === lastPair.token1.fullName);
         if (pivotPair) {
-          if (pivotPair.price > (firstPair.price / lastPair.price) * (1 + minArb / 100)) {
+          const divPrice = firstPair.price / lastPair.price;
+
+          if (pivotPair.price > divPrice * (1 + minArb / 100)) {
             const newArb: ArbitragePair = {
               token1: firstPair.token1,
               token2: firstPair.token2,
@@ -38,7 +40,18 @@ export const createPairs = (pairs: Set<AlcorPair>, targetTokens: Set<string>, mi
               trade1: firstPair,
               trade2: pivotPair,
               trade3: lastPair,
-              value: pivotPair.price - firstPair.price / lastPair.price,
+              value: pivotPair.price - divPrice,
+            };
+            newArbs.add(newArb);
+          } else {
+            const newArb: ArbitragePair = {
+              token1: firstPair.token1,
+              token2: firstPair.token2,
+              token3: lastPair.token1,
+              trade1: firstPair,
+              trade2: pivotPair,
+              trade3: lastPair,
+              value: -100,
             };
             newArbs.add(newArb);
           }

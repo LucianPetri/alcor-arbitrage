@@ -19,7 +19,7 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
   const [pairs, setPairs] = useState<Set<AlcorPair>>(new Set([]));
   const [pools, setPools] = useState<Set<AlcorPool>>(new Set([]));
   const [arbPairs, setArbPairs] = useState<Set<ArbitragePair>>(new Set([]));
-  const [whiteList, setWhiteList] = useState<Set<string>>(new Set(["WAXUSDT@eth.token"]));
+  const [whiteList, setWhiteList] = useState<Set<string>>(new Set([]));
   const [blackList, setBlackList] = useState<Set<string>>(new Set([]));
   const [targetList, setTargetList] = useState<Set<string>>(new Set(["WAXUSDT@eth.token"]));
   const [minArb, setMinArb] = useState<number>(2);

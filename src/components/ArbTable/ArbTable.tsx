@@ -14,7 +14,7 @@ export const ArbTable: FC = () => {
               <h2>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
-                    {pair.token1.name + "-" + pair.token2.name + "-" + pair.token3.name}
+                    {pair.token1.name + "-" + pair.token2.name + "-" + pair.token3.name + " value: " + pair.value}
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
