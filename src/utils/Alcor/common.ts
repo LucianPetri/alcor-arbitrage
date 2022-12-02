@@ -30,6 +30,7 @@ export const getQuantity = (token: AlcorToken) => Number(token.quantity.split(" 
  */
 export const TokenNameInSet = (set: Set<string>, token1: string, token2: string) => set.has(token1) || set.has(token2);
 
+
 const generatePair = (pool: AlcorLiquidityPool) => {
   const { pool1, pool2 } = pool;
   const token1 = {
@@ -46,12 +47,12 @@ const generatePair = (pool: AlcorLiquidityPool) => {
     };
   const token1Price = (token1.quantity + 3 * (token1.quantity / 100)) / (token2.quantity - 3 * (token2.quantity / 100));
   const token2Price = (token2.quantity + 3 * (token2.quantity / 100)) / (token1.quantity - 3 * (token1.quantity / 100));
-  const fee1 = token1Price * (4 + 0.3) * 0.01;
-  const fee2 = token2Price * (4 + 0.3) * 0.01;
+  const fee1 = (token1Price * 100) / 10000;
+  const fee2 = (token2Price * 100) / 10000;
   const estimatedPrice1 = token1Price + fee1;
   const estimatedPrice2 = token2Price + fee2;
-  const pair1: AlcorPair = { name: token1.fullName + "|" + token2.fullName, fee: fee1, price: estimatedPrice1, quantity: token1.quantity, token1: token1, token2: token2 };
-  const pair2: AlcorPair = { name: token2.fullName + "|" + token1.fullName, fee: fee2, price: estimatedPrice2, quantity: token2.quantity, token1: token2, token2: token1 };
+  const pair1: AlcorPair = { name: token1.fullName + "|" + token2.fullName, fee: fee1, price: estimatedPrice2, quantity: token1.quantity, token1: token1, token2: token2 };
+  const pair2: AlcorPair = { name: token2.fullName + "|" + token1.fullName, fee: fee2, price: estimatedPrice1, quantity: token2.quantity, token1: token2, token2: token1 };
   return { token1, token2, pair1, pair2 };
 };
 

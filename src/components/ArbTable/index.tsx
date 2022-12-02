@@ -1,5 +1,2 @@
-import { FC } from "react";
-
-export const ArbTable: FC = () => {
-    return <div>ArbTable</div>;
-};
+export { ArbTable } from "./ArbTable";
+export * from "./components";
