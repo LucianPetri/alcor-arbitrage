@@ -1,16 +1,18 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { ArbTable } from "./components/ArbTable";
 import { Menu } from "./components/Menu";
 import { ArbitrageProvider } from "./contexts/arbitrage";
 
 function App() {
+
+  
     return (
       <ChakraProvider>
-        <div></div>
-        {/* <ArbitrageProvider>
-                <ArbTable />
-                <Menu />
-            </ArbitrageProvider> */}
+        <ArbitrageProvider>
+          <ArbTable />
+          <Menu />
+        </ArbitrageProvider>
       </ChakraProvider>
     );
 }
