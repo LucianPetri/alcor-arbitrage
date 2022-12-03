@@ -44,14 +44,23 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
     new Set(["WAX@eosio.token"])
   );
 
-  const [minArb, setMinArb] = useState<number>(2);
-  const [limit, setLimit] = useState<number>(50000);
+  const [minArb, setMinArb] = useState<number>(0.1);
+  const [limit, setLimit] = useState<number>(100000);
+  const [slippage, setSlippage] = useState<number>(0.5);
+  const [startAmmount, setStartAmmount] = useState<number>(1);
 
   const generatePairs = async () => {
     try {
       const newPools: Set<AlcorPool> = await createPools(limit);
       const newPairs = filterPairs(newPools, blackList, whiteList);
-      const newArbPairs = createPairs(newPairs, targetList, minArb, 100, 100, true);
+      const newArbPairs = createPairs(
+        newPairs,
+        targetList,
+        minArb,
+        slippage,
+        startAmmount,
+        true
+      );
       setPools(newPools);
       setPairs(newPairs);
       setArbPairs(newArbPairs);
@@ -62,9 +71,31 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
 
   useEffect(() => {
     (async () => {
-      await generatePairs();
+      const newPools: Set<AlcorPool> = await createPools(limit);
+      setPools(newPools);
     })();
   }, []);
+
+  useEffect(() => {
+    if (pools.size > 0) {
+      const newPairs = filterPairs(pools, blackList, whiteList);
+      setPairs(newPairs);
+    }
+  }, [pools]);
+
+  useEffect(() => {
+    if (pairs.size > 0) {
+      const newArbPairs = createPairs(
+        pairs,
+        targetList,
+        minArb,
+        slippage,
+        startAmmount,
+        true
+      );
+      setArbPairs(newArbPairs);
+    }
+  }, [pairs]);
 
   return {
     pools,
