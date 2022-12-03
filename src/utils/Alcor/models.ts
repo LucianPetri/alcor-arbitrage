@@ -11,31 +11,35 @@ export interface AlcorToken {
 /**
  * @name Token
  * @param name WAX
+ * @param number 0.01
  * @param contract eosio.token
  * @param fullName WAX@eosio.token
  * @param quantity Number(234324.235256)
+ * @param precision 8
  */
-export interface Token {
+export interface  Token {
   name: string;
+  ammount: number;
   contract: string;
   fullName: string;
   quantity: number;
+  precision: number;
 }
 
 /**
  * @name AlcorPair
- * @param name "WAX@eosio.token|TLM@alien.worlds"
+ * @param name "WAX/TLM"
+ * @param fullText "{ammount} WAX  = {price} TLM"
  * @param price 0.234234
  * @param fee 0.0023423
- * @param quantity 234324.235256
  * @param token1 {name: "WAX", contract: "eosio.token" fullName: "WAX@eosio.token" quantity: 139845.23245}
  * @param token2 {name: "TLM", contract: "alien.worlds" fullName: "TLM@alien.worlds" quantity: 139845.23245}
  */
 export type AlcorPair = {
   name: string;
+  fullText: string;
   price: number;
   fee: number;
-  quantity: number;
   token1: Token;
   token2: Token;
 };
