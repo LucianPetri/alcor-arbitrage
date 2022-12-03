@@ -4,15 +4,14 @@ import { Menu } from "./components/Menu";
 import { ArbitrageProvider } from "./contexts/arbitrage";
 
 function App() {
-    return (
-      <ChakraProvider>
-        <div></div>
-        {/* <ArbitrageProvider>
-                <ArbTable />
-                <Menu />
-            </ArbitrageProvider> */}
-      </ChakraProvider>
-    );
+  return (
+    <ChakraProvider>
+      <ArbitrageProvider>
+        <ArbTable />
+        <Menu />
+      </ArbitrageProvider>
+    </ChakraProvider>
+  );
 }
 
 export default App;
