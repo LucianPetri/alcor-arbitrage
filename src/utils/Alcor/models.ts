@@ -93,7 +93,8 @@ export interface AlcorPool {
  * @param trade1 {name: "WAX@eosio.token|TLM@alien.worlds", price: 0.234234, fee: 0.0023423, quantity: 234324.235256}
  * @param trade2 {name: "TLM@eosio.token|EAR@alien.worlds", price: 0.234234, fee: 0.0023423, quantity: 234324.235256}
  * @param trade3 {name: "EAR@alien.worlds|WAX@eosio.token", price: 0.234234, fee: 0.0023423, quantity: 234324.235256}
- * @param value TOTAL VALUE OF TRADE
+ * @param value TOTAL VALUE WON / LOST
+ * @param value TOTAL PERCENTAGE WON / LOST
  */
 export type ArbitragePair = {
   token1: Token;
@@ -103,4 +104,5 @@ export type ArbitragePair = {
   trade2: AlcorPair;
   trade3: AlcorPair;
   value: number;
+  percentage: string;
 };

@@ -39,14 +39,35 @@ export const getPrecision = (quantity: string) =>
 
 /**
  *
+ * @param token Alcor Token
+ * @returns token precision as number
+ */
+export const getPriceImpact = (token: Token) => {
+  return Number((token.ammount / token.quantity).toFixed(token.precision)) * 100;
+};
+
+/**
+ *
  * @param token1 Alcor Token
  * @param token2 Alcor Token
  * @returns price as number
  */
-export const getPrice = (token1: Token, token2: Token, fee: number, ammount?: number) => {
-  const TokenWithFee = ammount ? ammount * (10000 - fee) : token1.ammount * (10000 - fee);
-  const numerator = parseFloat((TokenWithFee * token2.quantity).toPrecision(token1.precision));
-  const denominator = parseFloat((token1.quantity * 10000 + TokenWithFee).toPrecision(token2.precision));
+export const getPrice = (
+  token1: Token,
+  token2: Token,
+  fee: number,
+  ammount?: number
+) => {
+  const TokenWithFee = ammount
+    ? ammount * (10000 - fee)
+    : token1.ammount * (10000 - fee);
+  const numerator = parseFloat(
+    (TokenWithFee * token2.quantity).toPrecision(token1.precision)
+  );
+  const TokenWithPriceImpact = TokenWithFee - TokenWithFee * getPriceImpact(token1)
+  const denominator = parseFloat(
+    (token1.quantity * 10000 + TokenWithPriceImpact).toPrecision(token2.precision)
+  );
   return parseFloat((numerator / denominator).toPrecision(token2.precision));
 };
 
