@@ -60,13 +60,13 @@ const generateTokens = (pool: AlcorLiquidityPool) => {
 };
 
 const generatePairs = (token1: Token, token2: Token, fee: number) => {
-  const pair1Price = getPrice(token1, token2, fee);
+  const pair1Price = getPrice(token1, token2, fee, 1);
   const pair1Name = `${token1.name}/${token2.name}`;
   const pair1FullText = `1 ${token1.name} = ${pair1Price} ${token2.name}`;
 
-  const pair2Price = getPrice(token2, token1, fee);
+  const pair2Price = getPrice(token2, token1, fee, 1);
   const pair2Name = `${token2.name}/${token1.name}`;
-  const pair2FullText = `1 ${token2.name} = ${pair1Price} ${token1.name}`;
+  const pair2FullText = `1 ${token2.name} = ${pair2Price} ${token1.name}`;
 
   const pair1: AlcorPair = {
     name: pair1Name,

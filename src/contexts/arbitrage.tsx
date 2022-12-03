@@ -51,7 +51,7 @@ const useArbitrageHook: () => ArbitrageContextType = () => {
     try {
       const newPools: Set<AlcorPool> = await createPools(limit);
       const newPairs = filterPairs(newPools, blackList, whiteList);
-      const newArbPairs = createPairs(newPairs, targetList, minArb);
+      const newArbPairs = createPairs(newPairs, targetList, minArb, 0.5, 10, true);
       setPools(newPools);
       setPairs(newPairs);
       setArbPairs(newArbPairs);
